@@ -12,7 +12,7 @@
 添加完如下图
 ![step1.png](./doc/step1.png)
 
-然后修改 [本文件](https://github.com/TARI0510/AutoCheck/blob/master/README.md) ，加个空格，啥都行，提交就会自动执行了。
+然后修改 [本README.md文件](https://github.com/TARI0510/AutoCheck/blob/master/README.md) ，加个空格，啥都行，提交就会自动执行了。
 ![step2.png](./doc/step2.png)
 
 结果一般如下, 然后这个脚本是每天早上6点自动执行的
