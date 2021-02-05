@@ -13,3 +13,8 @@
 ![img.png](./doc/img.png)
 
 然后修改本文件（README.md），加个空格，啥都行，提交就会自动执行了。
+
+结果一般如下
+![img.png](./doc/result.png)
+
+有问题欢迎提 issue
