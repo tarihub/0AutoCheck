@@ -1,4 +1,4 @@
-# AutoCheck
+# AutoCheck - 内测版
 
 ## 简陋的使用方法
 
