@@ -10,11 +10,12 @@
 + API_SECRET: 第三方验证码识别API，内测期间找我要即可
 
 添加完如下图
-![example.png](./doc/example.png)
+![step1.png](./doc/step1.png)
 
-然后修改本文件（README.md），加个空格，啥都行，提交就会自动执行了。
+然后修改 [本文件](https://github.com/TARI0510/AutoCheck/blob/master/README.md) ，加个空格，啥都行，提交就会自动执行了。
+![step2.png](./doc/step2.png)
 
-结果一般如下
+结果一般如下, 然后这个脚本是每天早上6点自动执行的
 ![result.png](./doc/result.png)
 
 有问题欢迎提 issue
