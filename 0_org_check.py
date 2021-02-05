@@ -31,7 +31,7 @@ def base64_api(_base64_image):
     if result['success']:
         return result["data"]["result"]
     else:
-        print("验证码识别抽风了，再执行一遍吧")
+        raise Exception("验证码识别抽风了，再执行一遍吧")
 
 
 def login(_uuid, _base64_image):
