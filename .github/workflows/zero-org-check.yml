@@ -27,4 +27,4 @@ jobs:
       env:
         SECRET_TEST: ${{ secrets.SECRET_TEST }}
       run: |
-        python 0_org_check.py -u ${{ secrets.SECRET_TEST }}
+        python 0_org_check.py
