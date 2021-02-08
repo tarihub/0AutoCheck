@@ -18,7 +18,7 @@ API_KEY 和 API_SECRET 获取方法见 [API获取](./API获取.md)
 添加完如下图
 ![step1.png](./doc/step1.png)
 
-2. 然后在自己的仓库，给自己点个 start，就会开始啦
+2. 然后在自己的仓库，给自己点个 star，就会开始啦
 
 ![img.png](./doc/step2.png)
 记得是自己的仓库, 跑来我这里star是不会触发的...不过我倒是不介意 (
