@@ -32,7 +32,7 @@ curl -i -k 'https://aip.baidubce.com/oauth/2.0/token?grant_type=client_credentia
 注册, 付费一条龙即可
 http://www.ttshitu.com/
 
-因为感觉大家比较喜欢白嫖, 因此本项目默认是使用百度API, 如果您喜欢付费的感觉，可以用这个，不过 secret 设置那要加上 `CAPTCHA_API`
+因为感觉大家比较喜欢白嫖, 因此本项目默认是使用百度API, 如果您喜欢付费的感觉 (验证码识别准确率会高许多, 不过项目本身用百度API也有容错机制, 运行速度会慢点, 问题不是很大), 可以用这个，不过 secret 设置那要加上 `CAPTCHA_API`
 
 ![img.png](./doc/ttshitu_step_1.png)
 
