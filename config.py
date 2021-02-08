@@ -1,15 +1,15 @@
-# coding: utf-8
+# encoding:utf-8
 import os
 
 # **************** 必配选项 ****************
 # 零组登录帐号
-ZERO_USER = os.environ['ZERO_USER']
+ZERO_USER = os.environ['ZERO_USER'].strip()
 # 零组登录密码
-ZERO_PASSWD = os.environ['ZERO_PASSWD']
+ZERO_PASSWD = os.environ['ZERO_PASSWD'].strip()
 # 第三方图形验证码识别 api key
-API_KEY = os.environ['API_KEY']
+API_KEY = os.environ['API_KEY'].strip()
 # 第三方图形验证码识别 api secret
-API_SECRET = os.environ['API_SECRET']
+API_SECRET = os.environ['API_SECRET'].strip()
 # **************** 必配选项 ****************
 
 # 第三方验证码识别 api
