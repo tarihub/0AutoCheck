@@ -32,7 +32,7 @@ def get_code_info():
 
 def login(_captcha_uuid, _captcha_code):
     url = "https://wiki.0-sec.org/api/user/login"
-    for _ in config.CAPTCHA_FAIL_CNT:
+    for _ in range(config.CAPTCHA_FAIL_CNT):
         login_data = {
             "account": config.ZERO_USER, "password": config.ZERO_PASSWD,
             "code": _captcha_code, "uuid": _captcha_uuid
@@ -46,7 +46,7 @@ def login(_captcha_uuid, _captcha_code):
             _captcha_uuid, _captcha_code = get_code_info()
             continue
 
-    raise Exception('在检查一下下帐号密码有没有错喔, 如果没有就是验证码识别抽风了...免费的是有极限的 )')
+    raise Exception('在检查一下下帐号密码有没有错喔, 没有的话可以试试 Re-run-jobs，如果还不行就是验证码识别抽风了...免费的是有极限的 )')
 
 
 def sign(token):
