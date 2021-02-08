@@ -2,16 +2,20 @@
 百度API申请链接 https://console.bce.baidu.com/ai/#/ai/ocr/overview/index
 
 1. 创建应用
+
 ![img.png](./doc/baidu_step_1.png)
 
 2. 选择通用文字识别（高精度版）
+
 ![img_1.png](./doc/baidu_step_2.png)
 填写其他信息
+
 ![img_2.png](./doc/baidu_step_3.png)
 填好后点 立即创建即可
 
 
 3. 获取 API_KEY 和 API_SECRET
+
 ![img_3.png](./doc/baidu_step_4.png)
 
 4. 可验证下这个 API_KEY 和 API_SECRET 是否可用
@@ -20,6 +24,7 @@ curl -i -k 'https://aip.baidubce.com/oauth/2.0/token?grant_type=client_credentia
 ```
 
 像如下图这样是正常的
+
 ![img_4.png](./doc/baidu_step_5.png)
 
 ## 收费API
