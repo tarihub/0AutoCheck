@@ -1,20 +1,13 @@
-# coding:utf-8
+# coding: utf-8
 
-import os
 import json
 import requests
 
-# 零组登录帐号
-ZERO_USER = os.environ['ZERO_USER']
-# 零组登录密码
-ZERO_PASSWD = os.environ['ZERO_PASSWD']
-# 第三方图形验证码识别 api key
-API_KEY = os.environ['API_KEY']
-# 第三方图形验证码识别 api secret
-API_SECRET = os.environ['API_SECRET']
+import config
+import captcha
 
 
-def get_code_uuid():
+def get_code_info():
     # 获取image、UUID值
     code_url = "https://wiki.0-sec.org/api/user/captchaImage"
     code_image = requests.get(code_url)
@@ -23,28 +16,14 @@ def get_code_uuid():
     return json_data['data']['uuid'], json_data['data']['img']
 
 
-def base64_api(_base64_image):
-    # 你的验证码api账户
-    data = {"username": API_KEY, "password": API_SECRET, "image": _base64_image}
-    result = json.loads(requests.post("http://api.ttshitu.com/base64", json=data).text)
-    print(result)
-    if result['success']:
-        return result["data"]["result"]
-    else:
-        raise Exception("验证码识别抽风了，再执行一遍吧")
-
-
 def login(_uuid, _base64_image):
-    headers = {
-        'Accept': 'application/json, text/plain, */*',
-        'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/87.0.4280.141 Safari/537.36 Edg/87.0.664.75',
-        'Content-Type': 'application/json;charset=UTF-8', 'Accept-Encoding': 'gzip, deflate',
-        'Accept-Language': 'zh-CN,zh;q=0.9,en;q=0.8'
-    }
     url = "https://wiki.0-sec.org/api/user/login"
-    login_data = {"account": ZERO_USER, "password": ZERO_PASSWD, "code": base64_api(_base64_image), "uuid": _uuid}
+    login_data = {
+        "account": config.ZERO_USER, "password": config.ZERO_PASSWD,
+        "code": captcha.captcha_handle(_base64_image), "uuid": _uuid
+    }
     data_json = json.dumps(login_data)
-    logins = requests.post(url=url, headers=headers, data=data_json)
+    logins = requests.post(url=url, headers=config.HTTP_HEADER, data=data_json)
     # token
     return json.loads(logins.content)['data']['token']
 
@@ -74,7 +53,7 @@ def check_input(*args):
 
 
 if __name__ == '__main__':
-    check_input(ZERO_USER, ZERO_PASSWD, API_KEY, API_SECRET)
-    uuid, base64_image = get_code_uuid()
+    check_input(config.ZERO_USER, config.ZERO_PASSWD, config.API_KEY, config.API_SECRET)
+    uuid, base64_image = get_code_info()
     tokens = login(uuid, base64_image)
     sign(tokens)

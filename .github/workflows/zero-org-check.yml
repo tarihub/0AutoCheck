@@ -33,5 +33,6 @@ jobs:
         ZERO_PASSWD: ${{ secrets.ZERO_PASSWD }}
         API_KEY: ${{ secrets.API_KEY }}
         API_SECRET: ${{ secrets.API_SECRET }}
+        CAPTCHA_API: ${{ secrets.CAPTCHA_API }}
       run: |
         python 0_org_check.py
