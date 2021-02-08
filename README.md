@@ -18,8 +18,10 @@ API_KEY 和 API_SECRET 获取方法见 [API获取](./API获取.md)
 添加完如下图
 ![step1.png](./doc/step1.png)
 
-2. 然后修改 [本README.md文件](https://github.com/TARI0510/AutoCheck/blob/master/README.md) ，加个空格，啥都行，提交就会自动执行了。
-![step2.png](./doc/step2.png)
+2. 然后在自己的仓库，给自己点个 start，就会开始啦
+
+![img.png](./doc/step2.png)
+记得是自己的仓库, 跑来我这里star是不会触发的...不过我倒是不介意 (
 
 结果一般如下
 ![result.png](./doc/result.png)
@@ -29,5 +31,6 @@ API_KEY 和 API_SECRET 获取方法见 [API获取](./API获取.md)
 
 ### 有问题欢迎提 issue
 
-## 参考
+## 鸣谢
 + https://github.com/0-Xyao/Zero-box/tree/main/文库签到脚本
++ 感谢[果果同学](https:///github.com/imguoguo)提供的star触发action方式建议，一直在想怎样才能简单点
