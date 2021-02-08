@@ -16,9 +16,10 @@ def ttshitu_base64_api(_base64_image):
 
 def baidu_base64_api(_base64_image):
     baidu_api_token_req = 'https://aip.baidubce.com/oauth/2.0/token?grant_type=client_credentials&' \
-                 'client_id={}&client_secret={}'.format(config.API_KEY, config.API_SECRET)
+                     'client_id={}&client_secret={}'.format(config.API_KEY, config.API_SECRET)
     res_token = requests.get(baidu_api_token_req)
     if not res_token:
+        print(res_token)
         raise Exception('无法通过 API_KEY 和 API_SECRET 获取百度API token')
     access_token = res_token.json()['access_token']
 
