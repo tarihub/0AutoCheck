@@ -1,29 +1,37 @@
 # coding: utf-8
 import json
-import time
 import requests
 
 import config
 
 
 def ttshitu_base64_api(_base64_image):
-    # 你的验证码api账户
     data = {"username": config.API_KEY, "password": config.API_SECRET, "image": _base64_image}
-    for try_cnt in range(config.CAPTCHA_FAIL_CNT):
-        result = json.loads(requests.post("http://api.ttshitu.com/base64", json=data).text)
-        try:
-            print(result)
-            return result["data"]["result"]
-        except NameError:
-            print("验证码识别抽风了, 重试第" + str(try_cnt) + "ing...")
-            time.sleep(1.5)
-            if try_cnt > 10:
-                raise Exception('重试了' + str(try_cnt) + '次, 验证码识别真的抽风了, 退出...')
-            continue
+    result = json.loads(requests.post("http://api.ttshitu.com/base64", json=data).text)
+    if config.DEBUG:
+        print('****** ttshitu API ****** ')
+        print(result)
+    return result["data"]["result"]
 
 
 def baidu_base64_api(_base64_image):
-    pass
+    baidu_api_token_req = 'https://aip.baidubce.com/oauth/2.0/token?grant_type=client_credentials&' \
+                 'client_id={}&client_secret={}'.format(config.API_KEY, config.API_SECRET)
+    res_token = requests.get(baidu_api_token_req)
+    if not res_token:
+        raise Exception('无法通过 API_KEY 和 API_SECRET 获取百度API token')
+    access_token = res_token.json()['access_token']
+
+    url = 'https://aip.baidubce.com/rest/2.0/ocr/v1/accurate_basic?access_token=' + str(access_token)
+    headers = {'content-type': 'application/x-www-form-urlencoded'}
+    params = {"image": _base64_image}
+
+    res = requests.post(url, data=params, headers=headers).json()
+    if config.DEBUG:
+        print('****** baidu API ****** ')
+        print(res)
+
+    return str(res['words_result'][0]['words']).strip().replace(' ', '')
 
 
 if config.CAPTCHA_HANDLE not in config.CAPTCHA_API.keys():

@@ -1,6 +1,7 @@
 # coding: utf-8
 
 import json
+import time
 import requests
 
 import config
@@ -8,19 +9,32 @@ import captcha
 
 
 def get_code_info():
-    # 获取image、UUID值
-    code_url = "https://wiki.0-sec.org/api/user/captchaImage"
-    code_image = requests.get(code_url)
-    json_data = json.loads(code_image.content)
+    for try_cnt in range(config.CAPTCHA_FAIL_CNT):
+        # 获取image、UUID值
+        code_url = "https://wiki.0-sec.org/api/user/captchaImage"
+        code_image = requests.get(code_url)
+        json_data = json.loads(code_image.content)
 
-    return json_data['data']['uuid'], json_data['data']['img']
+        try:
+            # 默认已是 base64 编码，不需要转换
+            cap_code = captcha.captcha_handle(json_data['data']['img'])
+        except NameError:
+            cap_code = False
+
+        if len(cap_code) == config.CAPTCHA_CHECK:
+            return json_data['data']['uuid'], cap_code
+
+        print("验证码识别抽风了, 重试第 " + str(try_cnt) + " 次ing...")
+        time.sleep(1.5)
+        continue
+    raise Exception('重试了' + str(config.CAPTCHA_FAIL_CNT) + '次, 验证码识别真的抽风了, 退出...')
 
 
-def login(_uuid, _base64_image):
+def login(_captcha_uuid, _captcha_code):
     url = "https://wiki.0-sec.org/api/user/login"
     login_data = {
         "account": config.ZERO_USER, "password": config.ZERO_PASSWD,
-        "code": captcha.captcha_handle(_base64_image), "uuid": _uuid
+        "code": _captcha_code, "uuid": _captcha_uuid
     }
     data_json = json.dumps(login_data)
     logins = requests.post(url=url, headers=config.HTTP_HEADER, data=data_json)
@@ -54,6 +68,6 @@ def check_input(*args):
 
 if __name__ == '__main__':
     check_input(config.ZERO_USER, config.ZERO_PASSWD, config.API_KEY, config.API_SECRET)
-    uuid, base64_image = get_code_info()
-    tokens = login(uuid, base64_image)
+    captcha_uuid, captcha_code = get_code_info()
+    tokens = login(captcha_uuid, captcha_code)
     sign(tokens)
