@@ -18,7 +18,7 @@ def get_code_info():
         try:
             # 默认已是 base64 编码，不需要转换
             cap_code = captcha.captcha_handle(json_data['data']['img'])
-        except (IndexError, NameError):
+        except (IndexError, NameError, TypeError):
             cap_code = ''
 
         if len(cap_code) == config.CAPTCHA_CHECK:
@@ -32,14 +32,21 @@ def get_code_info():
 
 def login(_captcha_uuid, _captcha_code):
     url = "https://wiki.0-sec.org/api/user/login"
-    login_data = {
-        "account": config.ZERO_USER, "password": config.ZERO_PASSWD,
-        "code": _captcha_code, "uuid": _captcha_uuid
-    }
-    data_json = json.dumps(login_data)
-    logins = requests.post(url=url, headers=config.HTTP_HEADER, data=data_json)
-    # token
-    return json.loads(logins.content)['data']['token']
+    for _ in config.CAPTCHA_FAIL_CNT:
+        login_data = {
+            "account": config.ZERO_USER, "password": config.ZERO_PASSWD,
+            "code": _captcha_code, "uuid": _captcha_uuid
+        }
+        data_json = json.dumps(login_data)
+        logins = requests.post(url=url, headers=config.HTTP_HEADER, data=data_json)
+        try:
+            # token
+            return json.loads(logins.content)['data']['token']
+        except TypeError:
+            _captcha_uuid, _captcha_code = get_code_info()
+            continue
+
+    raise Exception('在检查一下下帐号密码有没有错喔, 如果没有就是验证码识别抽风了...免费的是有极限的 )')
 
 
 def sign(token):
