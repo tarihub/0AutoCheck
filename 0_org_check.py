@@ -18,7 +18,7 @@ def get_code_info():
         try:
             # 默认已是 base64 编码，不需要转换
             cap_code = captcha.captcha_handle(json_data['data']['img'])
-        except NameError:
+        except (IndexError, NameError):
             cap_code = False
 
         if len(cap_code) == config.CAPTCHA_CHECK:
