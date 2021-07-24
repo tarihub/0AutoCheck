@@ -12,6 +12,18 @@
 + ZERO_PASSWD: 零组的登录密码
 + API_KEY: 第三方验证码识别API AK
 + API_SECRET: 第三方验证码识别API SK
++ PLUSPUSH: pluspush推送服务的token
+
+pushplus 微信公众号推送
+
+使用[pushplus](http://www.pushplus.plus/)平台进行推送。
+
+使用方法：
+
+1.  访问[pushplus](http://www.pushplus.plus/)官网，登录
+
+2.  找到**一对一推送**，并复制你的**token**
+
 
 API_KEY 和 API_SECRET 获取方法见 [API获取](./API获取.md)
 
