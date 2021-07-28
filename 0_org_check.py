@@ -46,18 +46,23 @@ def login(_captcha_uuid, _captcha_code):
             _captcha_uuid, _captcha_code = get_code_info()
             continue
 
-    raise Exception('在检查一下下帐号密码有没有错喔, 没有的话可以试试 Re-run-jobs，如果还不行就是验证码识别抽风了...免费的是有极限的 )')
+    raise Exception('在检查一下下帐号密码有没有错喔, 没有的话可以试试 Re-run-jobs，如果还不行就是验证码识别抽风了...免费的是有极限的 (')
+
 
 # PushPlus Push 消息推送
-def push_plus_push(token, jf):
-    text = "签到成功，您当前积分为{}".format(jf)
-    url = "http://www.pushplus.plus/send?token={0}&title={1}&content={2}&template={3}".format(
+def push_plus_push(token, credit):
+    text = "签到成功，您当前积分为{}".format(credit)
+    url = "https://www.pushplus.plus/send?token={0}&title={1}&content={2}&template={3}".format(
         token, "零组文库签到", text, "html"
     )
-    ret = requests.get(url)
-    print("pushplus: " + ret.text)
-    
-    
+
+    try:
+        ret = requests.get(url)
+        print("pushplus: " + ret.text)
+    except Exception:
+        print('pushplus 推送接口访问异常, 请检查接口可达性或token是否正常')
+
+
 def sign(token):
     headers = {'Zero-Token': token}
     url = "https://wiki.0-sec.org/api/profile"
@@ -69,9 +74,10 @@ def sign(token):
 
     new_sign_data_json = requests.get(url=url, headers=headers)
     new_sign_data_credit = json.loads(new_sign_data_json.content)['data']['credit']
-    
-    #消息推送
-    push_plus_push(config.PLUSPUSH, new_sign_data_credit)
+
+    # 消息推送
+    if len(config.PLUSPUSH) != 0:
+        push_plus_push(config.PLUSPUSH, new_sign_data_credit)
 
     if new_sign_data_credit > old_sign_data_credit:
         print("签到成功，您的当前积分为：", new_sign_data_credit)
@@ -81,7 +87,9 @@ def sign(token):
 
 def check_input(*args):
     for v in args:
-        if len(v) > 64:
+        if len(v) == 0:
+            raise Exception('请检查 ZERO_USER ZERO_PASSWD API_KEY API_SECRET 四个字段是否存在')
+        if len(v) > 128:
             raise Exception('帐号密码密钥太长啦...')
 
 
