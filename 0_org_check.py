@@ -77,7 +77,7 @@ def sign(token):
 
     # 消息推送
     if len(config.PLUSPUSH) != 0:
-        push_plus_push(config.PLUSPUSH, '成功, 当前积分为: ' + new_sign_data_credit)
+        push_plus_push(config.PLUSPUSH, '成功, 当前积分为: ' + str(new_sign_data_credit))
 
     if new_sign_data_credit > old_sign_data_credit:
         print("签到成功，当前积分为：", new_sign_data_credit)

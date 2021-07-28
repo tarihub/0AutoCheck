@@ -23,14 +23,14 @@ API_KEY 和 API_SECRET 获取方法见 [API获取](./API获取.md)
 ![img.png](./doc/step2.png)
 记得是自己的仓库, 跑来我这里star是不会触发的...不过我倒是不介意 (
 
-结果一般如下 (2021.7.28 久久没看)
+结果一般如下
 ![result.png](./doc/result.png)
 
 这个脚本是 每天早上6点 自动执行，想要修改可以更改 [.github/workflows/zero-org-check.yml](./.github/workflows/zero-org-check.yml) 文件的 `- cron: '0 22 * * *`
  部分
 
 ### pushplus 微信公众号推送 (可选)
-感谢 [@ht0Ruial](https://github.com/ht0Ruial) PR
+感谢 [@ht0Ruial](https://github.com/ht0Ruial) [PR](https://github.com/TARI0510/0AutoCheck/pull/1)
 
 同样需要在 Settings -> Secrets 添加
 + PLUSPUSH: pluspush推送服务的token
