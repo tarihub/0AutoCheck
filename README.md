@@ -12,19 +12,6 @@
 + ZERO_PASSWD: 零组的登录密码
 + API_KEY: 第三方验证码识别API AK
 + API_SECRET: 第三方验证码识别API SK
-+ PLUSPUSH: pluspush推送服务的token
-
-### pushplus 微信公众号推送
-
-使用[pushplus](http://www.pushplus.plus/)平台进行推送。
-
-使用方法：
-
-1.  访问[pushplus](http://www.pushplus.plus/)官网，登录
-
-2.  找到**一对一推送**，并复制你的**token**
-
-
 
 API_KEY 和 API_SECRET 获取方法见 [API获取](./API获取.md)
 
@@ -42,8 +29,26 @@ API_KEY 和 API_SECRET 获取方法见 [API获取](./API获取.md)
 这个脚本是 每天早上6点 自动执行，想要修改可以更改 [.github/workflows/zero-org-check.yml](./.github/workflows/zero-org-check.yml) 文件的 `- cron: '0 22 * * *`
  部分
 
+### pushplus 微信公众号推送 (可选)
+同样需要在 Settings -> Secrets 添加
++ PLUSPUSH: pluspush推送服务的token
+
+使用 [pushplus](https://www.pushplus.plus/) 平台进行推送, token获取方法：
+1. 访问 [pushplus](https://www.pushplus.plus/) 官网，登录
+2. 找到**一对一推送**，并复制你的**token**
+
+效果大概如下
+
+![pushplus.png](./doc/pushplus.png)
+
 ### 有问题欢迎提 issue
+
+## 已知问题
++ Q1: 百度验证码API隔几天会过期，需要重新申请 (2021.7.28)
+
+这个好像因为百度API平台没有实名验证导致的 (提出这个问题的同学没实名，我实名了一直没过期)
 
 ## 鸣谢
 + https://github.com/0-Xyao/Zero-box/tree/main/文库签到脚本
 + 感谢[果果同学](https:///github.com/imguoguo)提供的star触发action方式建议，一直在想怎样才能简单点
++ 感谢 [@ht0Ruial](https://github.com/ht0Ruial) [PR](https://github.com/TARI0510/0AutoCheck/pull/1) 增加微信公众号推送功能
