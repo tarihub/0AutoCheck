@@ -23,7 +23,7 @@ API_KEY 和 API_SECRET 获取方法见 [API获取](./API获取.md)
 ![img.png](./doc/step2.png)
 记得是自己的仓库, 跑来我这里star是不会触发的...不过我倒是不介意 (
 
-结果一般如下 (2021.7.28 已经白嫖到差不多500分了)
+结果一般如下 (2021.7.28 久久没看)
 ![result.png](./doc/result.png)
 
 这个脚本是 每天早上6点 自动执行，想要修改可以更改 [.github/workflows/zero-org-check.yml](./.github/workflows/zero-org-check.yml) 文件的 `- cron: '0 22 * * *`
@@ -38,6 +38,10 @@ API_KEY 和 API_SECRET 获取方法见 [API获取](./API获取.md)
 使用 [pushplus](https://www.pushplus.plus/) 平台进行推送, token获取方法：
 1. 访问 [pushplus](https://www.pushplus.plus/) 官网，登录
 2. 找到**一对一推送**，并复制你的**token**
+
+效果大概如下
+
+![pushplus.png](./doc/pushplus.png)
 
 ### 有问题欢迎提 issue
 

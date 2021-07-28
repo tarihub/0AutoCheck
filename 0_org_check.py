@@ -27,7 +27,7 @@ def get_code_info():
         print("验证码识别抽风了, 重试第 " + str(try_cnt) + " 次ing...")
         time.sleep(1.5)
         continue
-    raise Exception('重试了' + str(config.CAPTCHA_FAIL_CNT) + '次, 验证码识别真的抽风了, 退出...')
+    sign_error('重试了' + str(config.CAPTCHA_FAIL_CNT) + '次, 验证码识别真的抽风了, 退出...')
 
 
 def login(_captcha_uuid, _captcha_code):
@@ -46,12 +46,12 @@ def login(_captcha_uuid, _captcha_code):
             _captcha_uuid, _captcha_code = get_code_info()
             continue
 
-    raise Exception('在检查一下下帐号密码有没有错喔, 没有的话可以试试 Re-run-jobs，如果还不行就是验证码识别抽风了...免费的是有极限的 (')
+    sign_error('在检查一下下帐号密码有没有错喔, 没有的话可以试试 Re-run-jobs，如果还不行就是验证码识别抽风了...免费的是有极限的 (')
 
 
 # PushPlus Push 消息推送
-def push_plus_push(token, credit):
-    text = "签到成功，您当前积分为{}".format(credit)
+def push_plus_push(token, sign_info):
+    text = "签到{}，{}".format(sign_info[0], sign_info[1])
     url = "https://www.pushplus.plus/send?token={0}&title={1}&content={2}&template={3}".format(
         token, "零组文库签到", text, "html"
     )
@@ -77,10 +77,10 @@ def sign(token):
 
     # 消息推送
     if len(config.PLUSPUSH) != 0:
-        push_plus_push(config.PLUSPUSH, new_sign_data_credit)
+        push_plus_push(config.PLUSPUSH, '成功, 当前积分为: ' + new_sign_data_credit)
 
     if new_sign_data_credit > old_sign_data_credit:
-        print("签到成功，您的当前积分为：", new_sign_data_credit)
+        print("签到成功，当前积分为：", new_sign_data_credit)
     else:
         print("兄弟，你已经签到过了，你的积分为：", new_sign_data_credit)
 
@@ -88,9 +88,15 @@ def sign(token):
 def check_input(*args):
     for v in args:
         if len(v) == 0:
-            raise Exception('请检查 ZERO_USER ZERO_PASSWD API_KEY API_SECRET 四个字段是否存在')
+            sign_error('请检查 ZERO_USER ZERO_PASSWD API_KEY API_SECRET 四个字段是否存在')
         if len(v) > 128:
-            raise Exception('帐号密码密钥太长啦...')
+            sign_error('帐号密码密钥太长啦...')
+
+
+def sign_error(error_text):
+    # 这里写死常量, 防止不小心信息泄漏
+    push_plus_push(config.PLUSPUSH, '失败, 请到 Github Action 查看详细原因')
+    raise Exception(error_text)
 
 
 if __name__ == '__main__':
