@@ -51,7 +51,7 @@ def login(_captcha_uuid, _captcha_code):
 
 # PushPlus Push 消息推送
 def push_plus_push(token, sign_info):
-    text = "签到{}，{}".format(sign_info[0], sign_info[1])
+    text = "{}".format(sign_info)
     url = "https://www.pushplus.plus/send?token={0}&title={1}&content={2}&template={3}".format(
         token, "零组文库签到", text, "html"
     )
@@ -77,7 +77,7 @@ def sign(token):
 
     # 消息推送
     if len(config.PLUSPUSH) != 0:
-        push_plus_push(config.PLUSPUSH, '成功, 当前积分为: ' + str(new_sign_data_credit))
+        push_plus_push(config.PLUSPUSH, '签到成功, 当前积分为: ' + str(new_sign_data_credit))
 
     if new_sign_data_credit > old_sign_data_credit:
         print("签到成功，当前积分为：", new_sign_data_credit)
@@ -95,7 +95,7 @@ def check_input(*args):
 
 def sign_error(error_text):
     # 这里写死常量, 防止不小心信息泄漏
-    push_plus_push(config.PLUSPUSH, '失败, 请到 Github Action 查看详细原因')
+    push_plus_push(config.PLUSPUSH, '签到失败, 请到 Github Action 查看详细原因')
     raise Exception(error_text)
 
 
