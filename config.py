@@ -10,6 +10,8 @@ ZERO_PASSWD = os.environ['ZERO_PASSWD'].strip()
 API_KEY = os.environ['API_KEY'].strip()
 # 第三方图形验证码识别 api secret
 API_SECRET = os.environ['API_SECRET'].strip()
+# 消息推送 PLUSPUSH
+PLUSPUSH = os.environ['PLUSPUSH'].strip()
 # **************** 必配选项 ****************
 
 # 第三方验证码识别 api

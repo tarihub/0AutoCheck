@@ -48,7 +48,16 @@ def login(_captcha_uuid, _captcha_code):
 
     raise Exception('在检查一下下帐号密码有没有错喔, 没有的话可以试试 Re-run-jobs，如果还不行就是验证码识别抽风了...免费的是有极限的 )')
 
-
+# PushPlus Push 消息推送
+def push_plus_push(token, jf):
+    text = "签到成功，您当前积分为{}".format(jf)
+    url = "http://www.pushplus.plus/send?token={0}&title={1}&content={2}&template={3}".format(
+        token, "零组文库签到", text, "html"
+    )
+    ret = requests.get(url)
+    print("pushplus: " + ret.text)
+    
+    
 def sign(token):
     headers = {'Zero-Token': token}
     url = "https://wiki.0-sec.org/api/profile"
@@ -60,6 +69,9 @@ def sign(token):
 
     new_sign_data_json = requests.get(url=url, headers=headers)
     new_sign_data_credit = json.loads(new_sign_data_json.content)['data']['credit']
+    
+    #消息推送
+    push_plus_push(config.PLUSPUSH, new_sign_data_credit)
 
     if new_sign_data_credit > old_sign_data_credit:
         print("签到成功，您的当前积分为：", new_sign_data_credit)

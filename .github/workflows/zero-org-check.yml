@@ -36,5 +36,6 @@ jobs:
         API_KEY: ${{ secrets.API_KEY }}
         API_SECRET: ${{ secrets.API_SECRET }}
         CAPTCHA_API: ${{ secrets.CAPTCHA_API }}
+        PLUSPUSH: ${{ secrets.PLUSPUSH }}
       run: |
         python 0_org_check.py
