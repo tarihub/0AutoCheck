@@ -30,8 +30,6 @@ API_KEY 和 API_SECRET 获取方法见 [API获取](./API获取.md)
  部分
 
 ### pushplus 微信公众号推送 (可选)
-感谢 [@ht0Ruial](https://github.com/ht0Ruial) [PR](https://github.com/TARI0510/0AutoCheck/pull/1)
-
 同样需要在 Settings -> Secrets 添加
 + PLUSPUSH: pluspush推送服务的token
 
@@ -53,3 +51,4 @@ API_KEY 和 API_SECRET 获取方法见 [API获取](./API获取.md)
 ## 鸣谢
 + https://github.com/0-Xyao/Zero-box/tree/main/文库签到脚本
 + 感谢[果果同学](https:///github.com/imguoguo)提供的star触发action方式建议，一直在想怎样才能简单点
++ 感谢 [@ht0Ruial](https://github.com/ht0Ruial) [PR](https://github.com/TARI0510/0AutoCheck/pull/1) 增加微信公众号推送功能
