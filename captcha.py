@@ -28,6 +28,8 @@ def baidu_base64_api(_base64_image):
     params = {"image": _base64_image}
 
     res = requests.post(url, data=params, headers=headers).json()
+    if res['error_code'] == 17:
+        raise Exception('Open api daily request limit reached')
     if config.DEBUG:
         print('****** baidu API ****** ')
         print(res)

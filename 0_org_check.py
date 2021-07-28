@@ -39,14 +39,23 @@ def login(_captcha_uuid, _captcha_code):
         }
         data_json = json.dumps(login_data)
         logins = requests.post(url=url, headers=config.HTTP_HEADER, data=data_json)
-        try:
-            # token
-            return json.loads(logins.content)['data']['token']
-        except TypeError:
+        res_login = json.loads(logins.content)
+        login_msg = res_login.get('message') or ''
+
+        if '验证码错误' in login_msg:
             _captcha_uuid, _captcha_code = get_code_info()
             continue
+        if '用户名或密码不正确' in login_msg:
+            sign_error('检查一下下帐号密码有没有错喔!')
 
-    sign_error('在检查一下下帐号密码有没有错喔, 没有的话可以试试 Re-run-jobs，如果还不行就是验证码识别抽风了...免费的是有极限的 (')
+        try:
+            # 登录成功后获取到的 token
+            return res_login['data']['token']
+        except TypeError:
+            print('****** 脱敏后发送此部分数据到 issue ******\n' + res_login + '\n****** 脱敏后发送此部分数据到 issue ******')
+            sign_error('零组文库登录接口返回数据异常')
+
+    sign_error('可以试试 Re-run-jobs，如果还不行就是验证码识别抽风了...免费的是有极限的 (')
 
 
 # PushPlus Push 消息推送

@@ -23,7 +23,7 @@ CAPTCHA_API = {
         'captcha_fail_cnt': 10,
     },
     'baidu_base64_api': {
-        'captcha_fail_cnt': 100
+        'captcha_fail_cnt': 60
     }
 }
 
