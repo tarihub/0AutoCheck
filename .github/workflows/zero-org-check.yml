@@ -4,9 +4,9 @@ on:
   push:
   watch:
     types: started
-  schedule:
+#  schedule:
     # 国际标准时间22点 (北京时间早上6点)
-    - cron: '0 22 * * *'
+#    - cron: '0 22 * * *'
 
 jobs:
   build:

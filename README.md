@@ -1,3 +1,6 @@
+# 归档
+![img.png](doc/archive.png)
+
 # 零组文库自动签到
 通过 Github 自带的 CI/CD 功能实现零组文库自动签到~
 
